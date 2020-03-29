@@ -43,6 +43,8 @@ std::vector<std::string> read_in(std::string filename){
 }
 int main(int argc, char **argv){
 	initscr();
+	int row,col;
+	getmaxyx(stdscr,row,col);
 	keypad(stdscr,true);
 	if(argc < 2){
 		addstr("Wrong number of arguments!\n");
@@ -56,8 +58,7 @@ int main(int argc, char **argv){
 				std::tuple<std::string, attr_t> tmp = translate(lines[i]);
 				Text line_txt {std::get<0>(tmp), std::get<1>(tmp)};
 				attron(line_txt.attr);
-				printw(line_txt.value.c_str());
-				printw("\n");
+				mvprintw(row/2+i-lines.size(),(col-10)/2,"%s\n",line_txt.value.c_str());
 				attroff(line_txt.attr);
 			}
 			int inp;
