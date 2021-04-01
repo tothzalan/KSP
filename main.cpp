@@ -19,15 +19,18 @@ struct Text {
 std::tuple<std::string, attr_t> translate(std::string raw_text){
 	Att atrs;
 	std::tuple<std::string, attr_t> tmp;
-	if(raw_text.substr(0,3).compare("#s#") == 0)
-		tmp = std::make_tuple(raw_text.substr(3,raw_text.size()), atrs.bold);	
-	else if(raw_text.substr(0,3).compare("#u#") == 0)
-		tmp = std::make_tuple(raw_text.substr(3,raw_text.size()), atrs.underline);
-	else if(raw_text.substr(0,3).compare("#l#") == 0)
-		tmp = std::make_tuple("\t -> "+raw_text.substr(3,raw_text.size()), A_DIM);
+	if(raw_text.length() > 1) {
+		if(raw_text.substr(0,1).compare("#") == 0)
+			tmp = std::make_tuple(raw_text.substr(1), atrs.bold);
+		else if(raw_text.substr(0,1).compare(">") == 0)
+			tmp = std::make_tuple(raw_text.substr(1), atrs.underline);
+		else if(raw_text.substr(0,1).compare("*") == 0)
+			tmp = std::make_tuple("\t->" + raw_text.substr(1), A_DIM);
+		else
+			tmp = std::make_tuple(raw_text, atrs.normal);
+	}
 	else
-		tmp = std::make_tuple(raw_text, atrs.normal);	
-	
+		tmp = std::make_tuple(raw_text, atrs.normal);
 	return tmp;
 }
 

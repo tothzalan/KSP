@@ -1,4 +1,4 @@
-#s#third slide
+#third slide
 asd
 das
 sad
