@@ -38,14 +38,14 @@ std::vector<std::string> read_in(std::string filename){
 	return tmp;
 }
 int main(int argc, char **argv){
-	initscr();
 	int row,col;
-	getmaxyx(stdscr,row,col);
-	keypad(stdscr,true);
 	if(argc < 2){
-		addstr("Wrong number of arguments!\n");
+		printf("Wrong number of arguments!\n");
 	}
 	else{
+		initscr();
+		getmaxyx(stdscr,row,col);
+		keypad(stdscr,true);
 		int index = 1;
 		while(index < argc){
 			clear();
@@ -66,12 +66,11 @@ int main(int argc, char **argv){
 				index++;
 			}
 		}
+		clear();
+		printw("End of presentation");
+		getch();
+		refresh();
+		endwin();
 	}
-	clear();
-	printw("End of presentation");
-	getch();
-	refresh();
-	endwin();
-
 	return 0;
 }
