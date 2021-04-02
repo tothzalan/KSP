@@ -5,32 +5,25 @@
 #include<string.h>
 #include<tuple>
 
-struct Att {
-	attr_t normal = A_NORMAL;
-	attr_t bold = A_BOLD;
-	attr_t underline = A_UNDERLINE;
-};
-
 struct Text {
 	std::string value;
 	attr_t attr;
 };
 
 std::tuple<std::string, attr_t> translate(std::string raw_text){
-	Att atrs;
 	std::tuple<std::string, attr_t> tmp;
 	if(raw_text.length() > 1) {
 		if(raw_text.substr(0,1).compare("#") == 0)
-			tmp = std::make_tuple(raw_text.substr(1), atrs.bold);
+			tmp = std::make_tuple(raw_text.substr(1), A_BOLD);
 		else if(raw_text.substr(0,1).compare(">") == 0)
-			tmp = std::make_tuple(raw_text.substr(1), atrs.underline);
+			tmp = std::make_tuple(raw_text.substr(1), A_UNDERLINE);
 		else if(raw_text.substr(0,1).compare("*") == 0)
 			tmp = std::make_tuple("\t->" + raw_text.substr(1), A_DIM);
 		else
-			tmp = std::make_tuple(raw_text, atrs.normal);
+			tmp = std::make_tuple(raw_text, A_NORMAL);
 	}
 	else
-		tmp = std::make_tuple(raw_text, atrs.normal);
+		tmp = std::make_tuple(raw_text, A_NORMAL);
 	return tmp;
 }
 
