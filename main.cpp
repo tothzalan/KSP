@@ -59,6 +59,9 @@ int main(int argc, char **argv){
 			if(inp == KEY_RIGHT){
 				index++;
 			}
+			if(inp == 'q' || inp == 'Q') {
+				break;
+			}
 		}
 		clear();
 		printw("End of presentation");
