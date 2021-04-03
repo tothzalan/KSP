@@ -5,11 +5,6 @@
 #include<string.h>
 #include<tuple>
 
-struct Text {
-	std::string value;
-	attr_t attr;
-};
-
 std::tuple<std::string, attr_t> translate(std::string raw_text){
 	std::tuple<std::string, attr_t> tmp;
 	if(raw_text.length() > 1) {
@@ -52,10 +47,9 @@ int main(int argc, char **argv){
 			std::vector<std::string> lines = read_in(argv[index]);
 			for(int i = 0; i <  lines.size(); i++){
 				std::tuple<std::string, attr_t> tmp = translate(lines[i]);
-				Text line_txt {std::get<0>(tmp), std::get<1>(tmp)};
-				attron(line_txt.attr);
-				mvprintw(row/2+i-lines.size(),(col-10)/2,"%s\n",line_txt.value.c_str());
-				attroff(line_txt.attr);
+				attron(std::get<1>(tmp));
+				mvprintw(row/2+i-lines.size(),(col-10)/2,"%s\n",std::get<0>(tmp).c_str());
+				attroff(std::get<1>(tmp));
 			}
 			int inp;
 			inp = getch();
